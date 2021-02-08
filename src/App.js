@@ -1,24 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import EnterPage from './components/enterPage';
+import PlayerSelection from './components/playerSelection';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Container } from '@material-ui/core';
+import Board from './components/board';
+import ErrorPage from './components/errorPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Container>
+          <Switch>
+            <Route path="/players">
+              <PlayerSelection />
+            </Route>
+            <Route path="/board">
+              <Board></Board>
+            </Route>
+            <Route path="/error">
+              <ErrorPage></ErrorPage>
+            </Route>
+            <Route path="/">
+              <EnterPage />
+            </Route>
+          </Switch>
+        </Container>
+      </div>
+    </Router>
   );
 }
 

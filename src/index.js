@@ -1,13 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import reducers from './storage/reducers';
+import { loadState, saveState } from './storage/loadSharedSate';
+
+const persistedState = loadState();
+const appStore = createStore(
+  reducers,
+  persistedState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+appStore.subscribe(() => {
+  saveState(appStore.getState());
+});
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={appStore}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 

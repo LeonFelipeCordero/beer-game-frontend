@@ -11,3 +11,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.paper-left {
+  padding: 2%;
+  text-align: left;
+}
+
+.paper-center {
+  padding: 2%;
+}
+
+.players-list {
+  margin-top: 5% !important;
+}
+
+.player-free-card {
+  background-color: #09abe6 !important;
+}
+
+.player-assigned-card {
+  background-color: #92d0de !important;
+}
+
+.player-selection-buton {
+  background-color: #1cb874 !important;
+}
+
+.error-window {
+  margin-top: 20%;
+}
