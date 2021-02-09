@@ -38,11 +38,12 @@ const playerDetails = (props) => {
       <Typography>Player details: {props.player.type}</Typography>
       <Divider></Divider>
       <Typography>ID: {props.player.id}</Typography>
-      <Typography>
-        Backlog in {backlog()}: {props.player.backlog}
-      </Typography>
       {props.playerType === 'Factory' && (
         <div>
+          <Typography>
+            Special beer backlog: {props.player.backlogSpecialBeer}
+          </Typography>
+          <Typography>Others backlog: {props.player.backlogOthers}</Typography>
           <Typography>
             Full production capacity: {props.player.fullCapacity}
           </Typography>
@@ -57,6 +58,9 @@ const playerDetails = (props) => {
       )}
       {props.playerType !== 'Factory' && (
         <div>
+          <Typography>
+            Backlog in {backlog()}: {props.player.backlog}
+          </Typography>
           <Typography>
             Last order received: {props.player.lastOrderResult}
           </Typography>

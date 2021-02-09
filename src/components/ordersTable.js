@@ -40,7 +40,7 @@ const OrdersTable = (props) => {
   };
 
   return (
-    <Paper className="paper-left" elevation={3}>
+    <Paper className="paper" elevation={3} style={{ marginTop: 25 }}>
       <Typography>{props.title}</Typography>
       <Divider></Divider>
       <TableContainer>

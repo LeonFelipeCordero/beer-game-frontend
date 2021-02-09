@@ -94,6 +94,6 @@ export default class ApiClient {
   }
 
   getEndpoint(role) {
-    return role === 'facory' ? this.endpoits.factory : this.endpoits.player;
+    return role === 'factory' ? this.endpoits.factory : this.endpoits.player;
   }
 }

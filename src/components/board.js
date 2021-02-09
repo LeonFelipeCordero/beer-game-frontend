@@ -7,6 +7,8 @@ import ApiClient from '../api-client/ApiClient';
 import { updatePlayer, updateSession } from '../storage/actions';
 import OrdersTable from './ordersTable';
 import { useHistory } from 'react-router-dom';
+import PlayerBoard from './playerBoard';
+import FactoryBoard from './factoryBoard';
 
 const Board = (props) => {
   const apiClient = new ApiClient();
@@ -44,23 +46,6 @@ const Board = (props) => {
     return () => clearInterval(interval);
   });
 
-  const orderType = () => {
-    switch (playerType) {
-      case 'Retailer':
-        return 'WholesalerOrder';
-      case 'Wholesaler':
-        return 'DistributorOrder';
-      case 'Distributor':
-        return 'FactoryOrder';
-    }
-  };
-
-  const createOrder = (event) => {
-    apiClient
-      .createNewOrder(session.id, orderType())
-      .catch(() => history.push('/error'));
-  };
-
   return (
     <div>
       <Typography component="h2" variant="h2">
@@ -73,52 +58,20 @@ const Board = (props) => {
       )}
       {session.completed && (
         <div>
-          <Grid container spacing={2} className="players-list">
-            <Grid item xs={6}>
-              <PlayerDetails player={player}></PlayerDetails>
-            </Grid>
-            <Grid>
-              {playerType != 'Factory' && (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  type="submmit"
-                  onClick={(event) => createOrder(event)}
-                >
-                  Create new order
-                </Button>
-              )}
-            </Grid>
-          </Grid>
-          <Grid container spacing={2} className="players-list">
-            <Grid item xs={6}>
-              <OrdersTable
-                orders={player.sendingOrders
-                  .filter((order) => order.status !== 'OnDelay')
-                  .sort((a, b) => {
-                    const aDate = new Date(a.datetime);
-                    const bDate = new Date(b.datetime);
-                    return bDate - aDate;
-                  })}
-                disableButton={false}
-                title="Pending orders"
-                session={session}
-              ></OrdersTable>
-            </Grid>
-            <Grid item xs={6}>
-              <OrdersTable
-                orders={player.receivingOrders.sort((a, b) => {
-                  const aDate = new Date(a.datetime);
-                  const bDate = new Date(b.datetime);
-                  return bDate - aDate;
-                })}
-                disableButton={true}
-                title="Created orders"
-                session={session}
-              ></OrdersTable>
-            </Grid>
-          </Grid>
+          {playerType !== 'Factory' && (
+            <PlayerBoard
+              session={session}
+              player={player}
+              playerType={playerType}
+            ></PlayerBoard>
+          )}
+          {playerType === 'Factory' && (
+            <FactoryBoard
+              session={session}
+              player={player}
+              playerType={playerType}
+            ></FactoryBoard>
+          )}
         </div>
       )}
     </div>
