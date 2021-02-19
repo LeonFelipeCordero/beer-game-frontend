@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Button, Grid, Paper, TextField, Typography } from '@material-ui/core';
 import ApiClinet from '../api-client/ApiClient';
-import { updatePlayer, updateSession } from '../storage/actions/index';
+import {
+  updatePlayer,
+  updateSession,
+  setPlayerType,
+} from '../storage/actions/index';
 import { useHistory } from 'react-router-dom';
 import AuthError from '../errors/authError';
 
@@ -22,7 +26,7 @@ const EnterPage = (props) => {
     if (event.target.id === 'new') {
       apiClient
         .createNewSession(newName, newPassword)
-        .then((session) => dispatch(updatePlayer(session)))
+        .then((session) => dispatch(updateSession(session)))
         .then(() => dispatch(setPlayerType(undefined)))
         .then(() => history.push('/players'))
         .catch((error) => setError(error.message));

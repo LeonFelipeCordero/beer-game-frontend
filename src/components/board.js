@@ -2,13 +2,13 @@ import { Button, Grid, Typography } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import PlayerDetails from './playerDetails';
+import PlayerDetails from './player/playerDetails';
 import ApiClient from '../api-client/ApiClient';
 import { updatePlayer, updateSession } from '../storage/actions';
 import OrdersTable from './ordersTable';
 import { useHistory } from 'react-router-dom';
-import PlayerBoard from './playerBoard';
-import FactoryBoard from './factoryBoard';
+import PlayerBoard from './player/playerBoard';
+import FactoryBoard from './factory/factoryBoard';
 
 const Board = (props) => {
   const apiClient = new ApiClient();

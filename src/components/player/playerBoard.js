@@ -1,8 +1,8 @@
-import { Button, Grid, Typography } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import { Button, Divider, Grid, Paper, Typography } from '@material-ui/core';
+import React from 'react';
 import PlayerDetails from './playerDetails';
-import OrdersTable from './ordersTable';
-import ApiClient from '../api-client/ApiClient';
+import OrdersTable from '../ordersTable';
+import ApiClient from '../../api-client/ApiClient';
 import { useHistory } from 'react-router-dom';
 
 const PlayerBoard = (props) => {
@@ -35,16 +35,19 @@ const PlayerBoard = (props) => {
             playerType={props.playerType}
           ></PlayerDetails>
         </Grid>
-        <Grid>
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            type="submmit"
-            onClick={(event) => createOrder(event)}
-          >
-            Create new order
-          </Button>
+        <Grid item xs={6}>
+          <Paper className="paper-left" elevation={3}>
+            <Typography>Actions</Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              type="submmit"
+              onClick={(event) => createOrder(event)}
+            >
+              Create new order
+            </Button>
+          </Paper>
         </Grid>
       </Grid>
       <OrdersTable

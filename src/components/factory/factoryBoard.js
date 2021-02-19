@@ -1,34 +1,41 @@
 import { Button, Grid, Typography } from '@material-ui/core';
-import React, { useEffect } from 'react';
-import PlayerDetails from './playerDetails';
-import OrdersTable from './ordersTable';
-import ApiClient from '../api-client/ApiClient';
+import React from 'react';
+import OrdersTable from '../ordersTable';
+import ApiClient from '../../api-client/ApiClient';
 import { useHistory } from 'react-router-dom';
+import FactoryDetails from './factoryDetails';
 
 const FactoryBoard = (props) => {
   const apiClient = new ApiClient();
   const history = useHistory();
 
-  const createOrder = (event) => {
-    apiClient
-      .createNewOrder(props.session.id, 'FactoryOrder')
-      .catch(() => history.push('/error'));
-  };
+  // const increaseCapacity = (event) => {
+  //   apiClient
+  //     .updateFactory(props.session.id, 'FactoryOrder')
+  //     .catch(() => history.push('/error'));
+  // };
 
   return (
     <div>
       <Grid container spacing={2} className="players-list">
         <Grid item xs={6}>
-          <PlayerDetails
+          <FactoryDetails
             player={props.player}
             playerType={props.playerType}
-          ></PlayerDetails>
+          ></FactoryDetails>
         </Grid>
-        <Grid>
-          <Button variant="contained" color="primary" fullWidth type="submmit">
-            Increase capacity
-          </Button>
-        </Grid>
+        {/* {props.player.increaseCapacity && (
+          <Grid>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={() => increaseCapacity()}
+            >
+              Increase capacity
+            </Button>
+          </Grid>
+        )} */}
       </Grid>
       <OrdersTable
         orders={props.player.orders

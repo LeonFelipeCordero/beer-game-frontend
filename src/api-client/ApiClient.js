@@ -44,6 +44,13 @@ export default class ApiClient {
     );
   }
 
+  async updateFactory(data) {
+    return this.patch(
+      this.url + this.endpoits.factory.id.replace('$id', data.id),
+      data
+    );
+  }
+
   async getPlayer(role, id) {
     return this.get(this.url + this.getEndpoint(role).id.replace('$id', id));
   }
