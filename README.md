@@ -24,3 +24,23 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+## Running on Kind
+
+### Requirements
+* Beer game api 
+* Kind 
+* Docker
+* kublectl
+* Helm
+
+### Deploy api
+on beer game repository follow the instructions to install
+```bash
+$ kubectl apply -f env/kind/deployment.yaml
+```
+
+### Deploy web app
+```bash
+$ kubectl apply -f env/kind/deployment.yaml
+```

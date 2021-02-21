@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beer-game-frontend
+  namespace: beer-game
+spec:
+  selector:
+    matchLabels:
+      app: beer-game-frontend
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: beer-game-frontend
+    spec:
+      containers:
+        - name: beer-game-frontend
+          image: localhost:5000/beer-game-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: server
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "1"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            failureThreshold: 2
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            failureThreshold: 5
+          env:
+            - name: NODE_ENV
+              value: production
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: beer-game-frontend
+  namespace: beer-game
+  labels:
+    app: beer-game-frontend
+spec:
+  ports:
+    - port: 8080
+      name: server
+  selector:
+    app: beer-game-frontend
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: beer-game-frontend
+  namespace: beer-game
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: beer-game-frontend
+                port:
+                  number: 8080

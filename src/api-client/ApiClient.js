@@ -4,7 +4,7 @@ import AutheError from '../errors/authError';
 
 export default class ApiClient {
   constructor() {
-    this.url = 'http://192.168.0.226:8080/';
+    this.url = process.env.REACT_APP_API_HOST;
     this.endpoits = {
       login: 'auth/login',
       session: { new: 'game-sessions/', find: 'game-sessions/$id' },
